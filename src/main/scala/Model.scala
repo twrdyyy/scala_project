@@ -1,6 +1,7 @@
+import botkop.{numsca => ns}
+import ns.Tensor
 
 class Model (parameters : Array[String]){
-
 
   var layers: Array[Layer] = for (layer_params <- parameters) yield {
     val Array(n_neurons, activation) = layer_params.split(" ")
@@ -11,10 +12,13 @@ class Model (parameters : Array[String]){
     layers = layers :+ layer
   }
 
-
-  //TODO layers to model
-
   //TODO fit
+  def fit(x : Tensor, y : Tensor, x_val : Tensor, y_val : Tensor) : Array[Float] = {
+    val cost : Float = 1.5f
+    val loss : Float = 2.5f
+
+    Array(cost, loss)
+  }
 
   //TODO train
 
