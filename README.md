@@ -7,7 +7,7 @@ Scala project for AGH Computer science class.
 ## Quick start :rocket:
 
 Make sure you fulfil **requirements**. Quick start creates local server for open-ai gym with "Cartpole" game and 
-starts scala client with new neural network. It trains it and shows results.
+starts scala client with new neural network, trains and shows results.
 
 ```shell script
 git clone https://github.com/twrdyyy/scala_project awesome_project
