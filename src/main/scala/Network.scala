@@ -6,4 +6,12 @@ class Network (val layers : Array[Layer]) {
 
   println("imma network")
 
+  //TODO add layer
+
+  //TODO forward
+
+  //TODO gradient
+
+  //TODO loss
+
 }

@@ -1,8 +1,12 @@
 import botkop.{numsca => ns}
 import ns.Tensor
 
-class Layer {
-  def hello: String = {
-    "hello world"
-  }
+class Layer(val neurons : Int) {
+
+  //TODO activation function
+
+  //TODO forward
+
+  //TODO backward
+
 }
