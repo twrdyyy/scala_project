@@ -1,19 +1,14 @@
 import java.net._
 import java.io._
-import scala.io._
 
-class Client {
-
-  def run: Unit = {
-    val s = new Socket(InetAddress.getByName("localhost"), 50000)
-    lazy val in = new BufferedSource(s.getInputStream).getLines()
-    val out = new PrintStream(s.getOutputStream)
-    out.println("lol")
-    out.flush()
-    println("Received: " + in.next)
-    out.println("")
-    out.flush()
-
-    s.close()
+class Client (val host : String = "localhost", val port : Int = 50000) {
+  def sendAction(action : String): String = {
+    val sock = new Socket(InetAddress.getByName(host), port)
+    val out = new PrintStream(sock.getOutputStream)
+    out.print(action)
+    out.flush
+    val envData = scala.io.Source.fromInputStream(sock.getInputStream).mkString
+    sock.close
+    envData
   }
 }
