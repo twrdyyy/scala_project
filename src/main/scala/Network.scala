@@ -1,11 +1,9 @@
 import botkop.{numsca => ns}
 import ns.Tensor
+import scala.collection.mutable
 
-class Network {
+class Network (val layers : Array[Layer]) {
 
-  def hell = {
-    val l: Layer = new Layer()
-    l.hello
-  }
+  println("imma network")
 
 }
