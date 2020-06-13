@@ -12,8 +12,8 @@ starts scala client with new neural network. It trains it and shows results.
 ```shell script
 git clone https://github.com/twrdyyy/scala_project awesome_project
 cd awesome_project
-chmod u+x example
-./example
+chmod u+x example.sh
+./example.sh
 ```
 
 ## Requirements :mega:
