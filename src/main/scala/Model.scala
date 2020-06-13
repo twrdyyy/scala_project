@@ -1,11 +1,16 @@
 import botkop.{numsca => ns}
 import ns.Tensor
 
-class Model (parameters : Array[String]){
+class Model (parameters : Array[String], input_size : Int){
+
+
+  var prev_layer_input : Int = input_size
 
   var layers: Array[Layer] = for (layer_params <- parameters) yield {
     val Array(n_neurons, activation) = layer_params.split(" ")
-    new Layer(n_neurons, activation)
+    val layer = new Layer(n_neurons.toInt, prev_layer_input, activation)
+    prev_layer_input = n_neurons.toInt
+    layer
   }
 
   def add(layer : Layer) : Unit = {

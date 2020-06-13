@@ -1,11 +1,11 @@
 import botkop.{numsca => ns}
 import ns.Tensor
 
-class Layer(val neurons : String, val activation : String) {
+class Layer(neurons : Int, input_size : Int, activation : String, random_init : Boolean = true, bias_init : Float = 0.0f) {
 
+  var A: Tensor = ns.rand(input_size, neurons)
+  var B: Tensor = ns.zeros(neurons, 1)
 
-  println(neurons.toInt)
-  println(activation)
 
   //TODO activation function
 

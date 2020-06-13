@@ -1,4 +1,6 @@
 import scala.collection.mutable
+import botkop.{numsca => ns}
+import ns.Tensor
 
 object Appl {
   def main(args: Array[String]): Unit = {
@@ -9,7 +11,7 @@ object Appl {
 //      println(envData)
 //    }
 //    client.sendAction("kill")
-    val model = new Model(Array("64 relu", "64 softmax"))
+//    val model = new Model(Array("3 relu", "4 softmax"), input_size = 2)
 
   }
 }
