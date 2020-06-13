@@ -5,5 +5,5 @@ render = False
 
 if __name__ == "__main__":
     server = OpenAIServer(env=game)
-    server.run(epochs=1000
+    server.run(epochs=1000,
                render=render)
