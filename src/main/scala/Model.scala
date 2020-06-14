@@ -69,7 +69,7 @@ class Model (parameters : Array[String], input_size : Int){
 
   def backward(y_pred : Tensor, x : Tensor, y : Tensor): Unit = {
 
-    var d_prev_active = ns.abs(y - y_pred)
+    var d_prev_active = y - y_pred
 
     layers.reverse foreach( layer => {
       val d_active = d_prev_active

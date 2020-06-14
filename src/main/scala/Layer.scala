@@ -14,6 +14,7 @@ class Layer(neurons : Int, input_size : Int, activation : String, random_init : 
   activation match {
     case "relu" => f = ReLU
     case "sigmoid" => f = Sigmoid
+    case "id" => f = ID
   }
 
   random_init match {

@@ -30,4 +30,9 @@ object Sigmoid extends ActivationFunction {
   }
 }
 
+object ID extends ActivationFunction {
+  override def apply(x: Tensor): Tensor = x
+
+  override def backward(dA: Tensor, z: Tensor): Tensor = z
+}
 
