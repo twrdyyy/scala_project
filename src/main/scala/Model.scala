@@ -32,7 +32,7 @@ class Model (parameters : Array[String], input_size : Int){
 
     for (epoch <- 1 to epochs) {
 
-      val y_pred = this.forward(x)
+      val y_pred = forward(x)
 
       val loss : Float = loss_function(y_pred, y)
       cost = cost :+ loss
@@ -40,7 +40,7 @@ class Model (parameters : Array[String], input_size : Int){
       val score = accuracy_function(y_pred, y)
       accuracy = accuracy :+ score
 
-      backward()
+      backward(y_pred, x, y)
 
       update_weights()
 
@@ -53,17 +53,37 @@ class Model (parameters : Array[String], input_size : Int){
   def forward(x : Tensor): Tensor = {
 
     var y_hat = layers.head forward x
-    layers.tail foreach( layer => y_hat = layer forward y_hat)
+    layers.head.prev_z = x
+    var prev = y_hat
+
+    layers.tail foreach( layer => {
+      layer.prev_z = prev
+      y_hat = layer forward y_hat
+      prev = y_hat
+    })
     y_hat
 
   }
 
-  def backward(): Unit = {
+  def backward(y_pred : Tensor, x : Tensor, y : Tensor): Unit = {
 
+    var d_prev_active = ns.abs(y - y_pred)
+
+    layers.reverse foreach( layer => {
+      val d_active = d_prev_active
+      val d_out = layer.f.backward(d_active, layer.z)
+      layer.backward(d_out, x)
+      d_prev_active = ns.dot(layer.A.T, d_out )
+    })
 
   }
 
   def update_weights() : Unit = {
+
+    layers.reverse foreach( layer => {
+      layer.A -= lr * layer.dA
+      layer.B -= lr * layer.dB
+    })
 
   }
 

@@ -4,7 +4,7 @@ import ns.Tensor
 
 object loss extends MeasurementFunction {
   override def apply(y_pred: Tensor, y: Tensor): Float = {
-    ns.sum(y-y_pred).toFloat
+    ns.sum(ns.abs(y-y_pred)).toFloat
   }
 }
 
@@ -24,12 +24,14 @@ object Appl {
 //    }
 //    client.sendAction("kill")
 
-    val model = new Model(Array("4 relu", "2 sigmoid"), input_size = 2)
-    model.compile(loss = loss, accuracy = accuracy, lr = 0.01f)
-    val x = ns.rand(10, 2)
-    val y = ns.rand(10, 2)
-    model.fit(x, y, epochs = 10)
-//    val y_hat = model.predict(x)
-//    print(y_hat)
+    val model = new Model(Array("8 relu", "1 relu"), input_size = 2)
+    model.compile(loss = loss, accuracy = accuracy, lr = 0.1f)
+    val x = ns.ones(2, 10)
+    val y = ns.zeros(1, 10)
+    y(1) := 1
+    model.fit(x, y, epochs = 2)
+    val y_hat = model.predict(x)
+    println(y_hat)
+
   }
 }
