@@ -25,9 +25,19 @@ class Model (parameters : Array[String], input_size : Int){
     Array(cost, loss)
   }
 
+  def forward(x : Tensor): Tensor = {
+
+    var y_hat = layers.head forward x
+    layers.tail foreach( layer => y_hat = layer forward y_hat)
+    y_hat
+
+  }
+
+  def backward() = 2
+
   //TODO train
 
-  //TODO predict
+  def predict(x : Tensor): Tensor = forward(x)
 
   def summary : String = {
 

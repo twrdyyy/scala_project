@@ -20,7 +20,7 @@ class Layer(neurons : Int, input_size : Int, activation : String, random_init : 
 
 
   def forward (x : Tensor) : Tensor = {
-    z = ns.dot(A, x) + B
+    z = ns.dot(x, A) + B
     f(ns.copy(z))
   }
 
