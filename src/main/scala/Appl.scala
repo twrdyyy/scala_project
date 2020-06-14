@@ -13,5 +13,7 @@ object Appl {
 //    client.sendAction("kill")
 //    val model = new Model(Array("3 relu", "4 softmax"), input_size = 2)
 
+    val x = ns.ones(3, 3)
+    print(ns.dot(ns.sum(x, axis=1).T, x))
   }
 }
