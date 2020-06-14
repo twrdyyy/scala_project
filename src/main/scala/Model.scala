@@ -7,6 +7,7 @@ class Model (parameters : Array[String], input_size : Int){
   var loss_function: MeasurementFunction = _
   var accuracy_function: MeasurementFunction = _
   var lr: Float = _
+  var log : Boolean = true
 
   var layers: Array[Layer] = for (layer_params <- parameters) yield {
     val Array(n_neurons, activation) = layer_params.split(" ")
@@ -15,10 +16,11 @@ class Model (parameters : Array[String], input_size : Int){
     layer
   }
 
-  def compile(loss : MeasurementFunction, accuracy : MeasurementFunction, lr : Float): Unit = {
+  def compile(loss : MeasurementFunction, accuracy : MeasurementFunction, lr : Float, log : Boolean = true): Unit = {
     loss_function = loss
     accuracy_function = accuracy
     this.lr = lr
+    this.log = log
   }
 
   def add(layer : Layer) : Unit = {
@@ -44,7 +46,7 @@ class Model (parameters : Array[String], input_size : Int){
 
       update_weights()
 
-      println(s"Epoch [$epoch/$epochs] accuracy: $score loss: $loss")
+      if (log) println(s"Epoch [$epoch/$epochs] accuracy: $score loss: $loss")
     }
 
     Array(accuracy, cost)
