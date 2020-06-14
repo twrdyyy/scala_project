@@ -7,6 +7,10 @@ trait ActivationFunction {
   def backward(dA : Tensor, z : Tensor) : Tensor
 }
 
+trait MeasurementFunction {
+  def apply(y_pred : Tensor, y : Tensor) : Float
+}
+
 object ReLU extends ActivationFunction {
   override def apply(x: Tensor): Tensor = ns.maximum(x, 0)
 
