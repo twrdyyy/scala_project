@@ -87,7 +87,7 @@ class Model (parameters : Array[String], input_size : Int){
 
   }
 
-  def predict(x : Tensor): Tensor = forward(x)
+  def predict(x : ns.Tensor): ns.Tensor = forward(x)
 
   def summary : String = {
 

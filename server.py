@@ -30,14 +30,12 @@ class OpenAIServer:
 
 
     def run(self,
-            epochs : int,
             render : bool = False):
         """
         Start open-ai server and wait for start response from client than
         evaluate response render
 
         Args:
-        @epochs (int)  : number of iteration in evaluating model
         @redner (bool) : decide if server should render open-ai gym or not
         """
 
@@ -48,19 +46,27 @@ class OpenAIServer:
         self.env = gym.make(self.game)
         self.env.reset()
 
-        action = "random"
+        action = "start"
 
-        for i in range(epochs):
+        while True:
 
             if render:
                 self.env.render()
 
-            if action == "random":
-                observation, reward, done, _ = self.env.step(self.env.action_space.sample())
-                env_data = " ".join([f"{x:.6f}" for x in observation]) + ";" + f"{reward:.2f}" + ";" + str(int(done))
-            else:
+            if action == "end":
                 self.env.close()
                 break
+            elif action == "start":
+                observation = self.env.reset()
+                done = False
+                env_data = " ".join([f"{x:.6f}" for x in observation]) + ";0;0"
+            else:
+                action = int(action)
+                observation, reward, done, _ = self.env.step(action)
+                env_data = " ".join([f"{x:.6f}" for x in observation]) + ";" + f"{reward:.2f}" + ";" + str(int(done))
+
+            if done:
+                self.env.reset()
 
             while 1:
                 client, address = self.sock.accept()
@@ -73,9 +79,4 @@ class OpenAIServer:
             action = str(data.decode("utf-8"))
 
         self.env.close()
-
-
-
-
-
 

@@ -17,7 +17,7 @@ class Layer(neurons : Int, input_size : Int, activation : String, random_init : 
   }
 
   random_init match {
-    case true => A = ns.rand(neurons, input_size) * 0.1
+    case true => A = ns.uniform(0, 1, shape = Array(neurons, input_size))
     case false => A = ns.zeros(neurons, input_size)
   }
 
