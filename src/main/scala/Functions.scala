@@ -20,7 +20,10 @@ object ReLU extends ActivationFunction {
 object Sigmoid extends ActivationFunction {
   override def apply(x: Tensor): Tensor = 1 / (1 + ns.exp(x))
 
-  override def backward(dA: Tensor, z: Tensor): Tensor = dA - z
+  override def backward(dA: Tensor, z: Tensor): Tensor = {
+    val s = apply(z)
+    ns.multiply(dA, ns.multiply(s, 1-s))
+  }
 }
 
 

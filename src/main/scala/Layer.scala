@@ -5,8 +5,8 @@ class Layer(neurons : Int, input_size : Int, activation : String, random_init : 
 
   var A: Tensor = ns.rand(input_size, neurons)
   var B: Tensor = ns.zeros(neurons, 1)
-  var f : ActivationFunction = ReLU
-  var z : ns.Tensor = ns.zeros(1)
+  var f : ActivationFunction = _
+  var z : ns.Tensor = _
 
   activation match {
     case "relu" => f = ReLU
